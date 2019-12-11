@@ -20,8 +20,17 @@ if(0){ 	// provincias de Galicia
 		}
 	}
 }
-if(1){	// provincias que empiezan por A
+if(0){	// provincias que empiezan por A
 	foreach($provincias as $p)
 		if($p['provincia'][0]=='A')
 			echo $p['provincia'].'<br/>';
+}
+if(1){	// listado de autonomias
+	foreach($provincias as $p)
+		$autonomias[]=$p['autonomia'];
+	$autonomias=array_unique($autonomias);
+	echo '<ol>';
+	foreach($autonomias as $autonomia)
+		echo '<li>'.$autonomia.'</li>';
+	echo '</ol>';
 }
