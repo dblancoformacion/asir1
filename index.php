@@ -1,13 +1,12 @@
 <?php // Vamos a realizar las consultas del entrenador en php
-if(1){	// conexión a la base de datos
+if(1){	// conexión a la base de datos y generación del array $provincias
 	$conn = new mysqli('localhost','root','','provincias');
 	$conn->query("SET NAMES utf8;");
-
 	$provincias=$conn->query("
 		SELECT * FROM provincias;
 	")->fetch_all(MYSQLI_ASSOC);
 }
-if(0){	// tabla completa
+if(0){	// tabla provincias completa
 	echo '<pre>';
 	print_r($provincias);
 	echo '</pre>';
