@@ -293,7 +293,7 @@ if(0){	// (40) ¿Cuántas provincias con nombre compuesto tiene cada comunidad a
 	foreach($as as $a=>$n)
 		echo $a.' '.$n.'<br/>';
 }
-if(1){	// (41) Autonomías uniprovinciales
+if(0){	// (41) Autonomías uniprovinciales
 	foreach($provincias as $p){
 		if(!isset($as[$p['autonomia']]))
 			$as[$p['autonomia']]=0;
@@ -305,6 +305,136 @@ if(1){	// (41) Autonomías uniprovinciales
 	sort($us);
 	foreach($us as $a)
 		echo $a.'<br/>';
+}
+if(0){	// (42) ¿Qué autonomía tiene 5 provincias?
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]++;
+	}
+	foreach($as as $a=>$n)
+		if($n==5)
+			$us[]=$a;
+	sort($us);
+	foreach($us as $a)
+		echo $a.'<br/>';
+}
+if(0){	// (43) Población de la autonomía más poblada
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]+=$p['poblacion'];
+	}
+	echo max($as);
+}
+if(0){	// (44) ¿Qué porcentaje del total nacional representa Cantabria en población y en superficie?
+	$pob=0;
+	$sup=0;
+	foreach($provincias as $p){
+		$pob+=$p['poblacion'];
+		$sup+=$p['superficie'];
+		if($p['provincia']=='Cantabria'){
+			$pob_can=$p['poblacion'];
+			$sup_can=$p['superficie'];
+		}
+	}
+	echo str_replace('.',',',round($pob_can/$pob*100,4)).' ';
+	echo str_replace('.',',',round($sup_can/$sup*100,4));
+}
+if(0){	// (49) Obtener la provincia más poblada de cada comunidad autónoma, indicando la población de ésta. Mostrar autonomía, provincia y población por orden de aparición en la tabla.
+	foreach($provincias as $p)
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=[
+				$p['provincia'],
+				$p['poblacion'],
+			];
+		else if($as[$p['autonomia']][1]<$p['poblacion']){
+			$as[$p['autonomia']][0]=$p['provincia'];
+			$as[$p['autonomia']][1]=$p['poblacion'];
+		}
+	foreach($as as $a=>$p)
+		echo $a.' '.$p[0].' '.$p[1].'<br/>';
+}
+if(0){	// (47) ¿En qué posición del ranking autonómico por población de mayor a menor está Cantabria?
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]+=$p['poblacion'];
+	}
+	arsort($as);
+	$n=0;
+	foreach($as as $a=>$pob){
+		++$n;
+		if($a=='Cantabria')
+			break;
+	}
+	echo $n;
+}
+if(0){	// (45) Automía más extensa
+	unset($as);
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]+=$p['superficie'];
+	}
+	arsort($as);
+	foreach($as as $a=>$s){
+		echo $a;
+		break;
+	}
+}
+if(0){	// (46) Autonomía con más provincias
+	unset($as);
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]++;
+	}
+	arsort($as);
+	foreach($as as $a=>$s){
+		echo $a;
+		break;
+	}
+}
+if(0){	// (48) Provincia más despoblada de la autonomía más poblada
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]+=$p['poblacion'];
+	}
+	arsort($as);
+	foreach($as as $a=>$pob){
+		$autonomia=$a;
+		break;
+	}
+	foreach($provincias as $p)
+		if($p['autonomia']==$autonomia)
+			$ps[$p['provincia']]=$p['poblacion'];
+	asort($ps);
+	foreach($ps as $p=>$pob){
+		echo $p;
+		break;
+	}
+}
+if(1){	// (50) Provincia más poblada de la autonomía más despoblada
+	foreach($provincias as $p){
+		if(!isset($as[$p['autonomia']]))
+			$as[$p['autonomia']]=0;
+		$as[$p['autonomia']]+=$p['poblacion'];
+	}
+	asort($as);
+	foreach($as as $a=>$pob){
+		$autonomia=$a;
+		break;
+	}
+	foreach($provincias as $p)
+		if($p['autonomia']==$autonomia)
+			$ps[$p['provincia']]=$p['poblacion'];
+	arsort($ps);
+	foreach($ps as $p=>$pob){
+		echo $p;
+		break;
+	}
 }
 //--------------
 if(0){	// Autonomía con el nombre más corto
